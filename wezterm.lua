@@ -1,7 +1,7 @@
 -- 下記リンクの設定をベースにしています。
 -- https://zenn.dev/yutakatay/articles/wezterm-intro
 
-local wezterm = require 'wezterm';
+local wezterm = require "wezterm"
 local act = wezterm.action
 
 local config = {}
@@ -40,11 +40,11 @@ config.adjust_window_size_when_changing_font_size = false
 -- 画面を透過させます。
 config.window_background_opacity = 0.85
 
--- フルスクリーンで起動するようにします。
+-- 画面を最大化して起動するようにします。
 local mux = wezterm.mux
 wezterm.on("gui-startup", function(cmd)
     local tab, pane, window = mux.spawn_window(cmd or {})
-    window:gui_window():toggle_fullscreen()
+    window:gui_window():maximize()
 end)
 
 --------------------------------------------------
@@ -80,9 +80,23 @@ config.mouse_bindings = {
 config.keys = {
   -- Alt (Opt) + Shift + F でフルスクリーンを切り替えます。
   {
-    key = 'f',
-    mods = 'SHIFT|META',
+    key = "f",
+    mods = "SHIFT|META",
     action = wezterm.action.ToggleFullScreen,
+  },
+  
+  -- Ctrl + Shift + t で新しいタブを作成します。
+  {
+    key = "t",
+    mods = "SHIFT|CTRL",
+    action = act.SpawnTab "CurrentPaneDomain",
+  },
+  
+  -- Ctrl + Shift + d で新しいペインを作成します。
+  {
+    key = "d",
+    mods = "SHIFT|CTRL",
+    action = wezterm.action.SplitHorizontal { domain = "CurrentPaneDomain" },
   },
 }
 
