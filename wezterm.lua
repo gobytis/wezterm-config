@@ -38,7 +38,10 @@ config.hide_tab_bar_if_only_one_tab = true
 config.adjust_window_size_when_changing_font_size = false
 
 -- 画面を透過させます。
-config.window_background_opacity = 0.85
+config.window_background_opacity = 0.94
+
+-- タイトルバーを非表示にします。
+config.window_decorations = "RESIZE"
 
 -- 画面を最大化して起動するようにします。
 local mux = wezterm.mux
@@ -92,11 +95,18 @@ config.keys = {
     action = act.SpawnTab "CurrentPaneDomain",
   },
   
-  -- Ctrl + Shift + d で新しいペインを作成します。
+  -- Ctrl + Shift + d で新しいペインを縦分割で作成します。
   {
     key = "d",
     mods = "SHIFT|CTRL",
     action = wezterm.action.SplitHorizontal { domain = "CurrentPaneDomain" },
+  },
+
+  -- Alt + Ctrl + Shift + d で新しいペインを横分割で作成します。
+  {
+    key = "d",
+    mods = "CTRL|META",
+    action = wezterm.action.SplitVertical { domain = "CurrentPaneDomain" },
   },
 }
 
