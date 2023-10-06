@@ -6,14 +6,26 @@ local act = wezterm.action
 
 local config = {}
 
+--------------------------------------------------
+-- シェルの設定
+--------------------------------------------------
+
+-- デフォルトのプログラムを設定します。
+config.default_prog = {"powershell"}
+
+--------------------------------------------------
+-- フォントに関する設定
+--------------------------------------------------
+
 -- 使用するフォントを指定します。
 config.font = wezterm.font("Ricty Diminished")
 
--- IME が動作するようにします。
-config.use_ime = true
-
 -- フォント サイズを指定します。
 config.font_size = 14.0
+
+--------------------------------------------------
+-- 見た目に関する設定
+--------------------------------------------------
 
 -- カラー スキームを指定します。
 -- https://wezfurlong.org/wezterm/colorschemes/index.html
@@ -25,8 +37,22 @@ config.hide_tab_bar_if_only_one_tab = true
 -- フォント サイズに応じた自動ウィンドウ サイズ調整を off にします。
 config.adjust_window_size_when_changing_font_size = false
 
--- デフォルトのプログラムを設定します。
-config.default_prog = {"powershell"}
+-- 画面を透過させます。
+config.window_background_opacity = 0.85
+
+-- フルスクリーンで起動するようにします。
+local mux = wezterm.mux
+wezterm.on("gui-startup", function(cmd)
+    local tab, pane, window = mux.spawn_window(cmd or {})
+    window:gui_window():toggle_fullscreen()
+end)
+
+--------------------------------------------------
+-- 操作に関する設定
+--------------------------------------------------
+
+-- IME が動作するようにします。
+config.use_ime = true
 
 -- 右クリックでクリップボードを使えるようにします。
 -- https://github.com/wez/wezterm/discussions/3541
@@ -45,6 +71,19 @@ config.mouse_bindings = {
             end
         end),
     },
+}
+
+--------------------------------------------------
+-- キーマップ
+--------------------------------------------------
+
+config.keys = {
+  -- Alt (Opt) + Shift + F でフルスクリーンを切り替えます。
+  {
+    key = 'f',
+    mods = 'SHIFT|META',
+    action = wezterm.action.ToggleFullScreen,
+  },
 }
 
 return config
