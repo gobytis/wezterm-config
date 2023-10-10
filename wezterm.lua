@@ -80,6 +80,7 @@ config.mouse_bindings = {
 -- キーマップ
 --------------------------------------------------
 
+config.leader = {key = "Space", mods = "META"}
 config.keys = {
   -- Alt (Opt) + Shift + F でフルスクリーンを切り替えます。
   {
@@ -107,6 +108,35 @@ config.keys = {
     key = "d",
     mods = "CTRL|META",
     action = wezterm.action.SplitVertical { domain = "CurrentPaneDomain" },
+  },
+
+  -- ペインのサイズを変更するキーマップです。
+  {
+    key = "h",
+    mods = "LEADER",
+    action = act.AdjustPaneSize { "Left", 5 },
+  },
+  {
+    key = "j",
+    mods = "LEADER",
+    action = act.AdjustPaneSize { "Down", 5 },
+  },
+  { 
+    key = "k",
+    mods = "LEADER",
+    action = act.AdjustPaneSize { "Up", 5 },
+  },
+  {
+    key = "l",
+    mods = "LEADER",
+    action = act.AdjustPaneSize { "Right", 5 },
+  },
+
+  -- ペイン間を移動します。
+  {
+      key = "Tab",
+      mods = "LEADER",
+      action = act.ActivatePaneDirection "Next",
   },
 }
 
