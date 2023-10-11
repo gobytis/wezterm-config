@@ -138,6 +138,13 @@ config.keys = {
       mods = "LEADER",
       action = act.ActivatePaneDirection "Next",
   },
+
+  -- 現在のペインを最大化/最小化します。
+  {
+    key = 't',
+    mods = 'LEADER',
+    action = wezterm.action.TogglePaneZoomState,
+  },
 }
 
 return config
