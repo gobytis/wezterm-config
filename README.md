@@ -1,1 +1,1 @@
-WwzTerm config file.
+WezTerm config file.
